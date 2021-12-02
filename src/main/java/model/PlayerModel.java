@@ -28,8 +28,8 @@ import java.awt.*;
 public class PlayerModel {
 
 
-    public static final Color BORDER_COLOR = Color.GREEN.darker().darker();
-    public static final Color INNER_COLOR = Color.GREEN;
+    public static final Color BORDER_COLOR = Color.WHITE.darker().brighter3();
+    public static final Color INNER_COLOR = Color.WHITE;
 
     private static final int DEF_MOVE_AMOUNT = 5;
 
