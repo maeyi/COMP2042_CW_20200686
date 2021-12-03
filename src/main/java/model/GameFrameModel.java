@@ -19,6 +19,7 @@ package model;
 
 import view.GameBoardView;
 import view.HomeMenuView;
+import view.InfoMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,6 +36,7 @@ public class GameFrameModel extends JFrame implements WindowFocusListener {
 
     private GameBoardView gameBoard;
     private HomeMenuView homeMenu;
+    private InfoMenu InfoMenu;
 
     private boolean gaming;
 
@@ -49,6 +51,8 @@ public class GameFrameModel extends JFrame implements WindowFocusListener {
         this.setLayout(new BorderLayout());
 
         gameBoard = new GameBoardView(this);
+        
+        InfoMenu = new InfoMenu(this,new Dimension(600,450));
 
         homeMenu = new HomeMenuView(this,new Dimension(600,450));//from (450,300) . make size of HomeMenu same as size of GameBoard
 
@@ -96,6 +100,22 @@ public class GameFrameModel extends JFrame implements WindowFocusListener {
         int x = (size.width - this.getWidth()) / 2;
         int y = (size.height - this.getHeight()) / 2;
         this.setLocation(x,y);
+    }
+    
+    public void enableInfoMenu(){
+        this.dispose();
+        this.remove(homeMenu);
+        this.add(InfoMenu,BorderLayout.CENTER);
+        this.setUndecorated(false);
+        initialize();
+    }
+
+    public void enableHomeMenu(){
+        this.dispose();
+        this.remove(InfoMenu);
+        this.add(homeMenu,BorderLayout.CENTER);
+        this.setUndecorated(false);
+        initialize();
     }
 
 
