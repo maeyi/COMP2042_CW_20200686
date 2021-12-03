@@ -36,7 +36,7 @@ public class GameFrameModel extends JFrame implements WindowFocusListener {
 
     private GameBoardView gameBoard;
     private HomeMenuView homeMenu;
-    private InfoMenu InfoMenu;
+    private InfoMenu InfoMenu;// add info button
 
     private boolean gaming;
 
