@@ -12,7 +12,7 @@ import model.GameFrameModel;
 
 public class InfoMenu extends JComponent implements MouseListener, MouseMotionListener{
 
-
+    //add details in info page
     private static final String BACK_TEXT = "Back";
     private static final String INSTRUCTIONS = "HOW TO PLAY:";
     private static final String INSTRUCTIONS1 = "Press key A and key D to more left and right.";
