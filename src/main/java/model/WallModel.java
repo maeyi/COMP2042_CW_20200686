@@ -24,13 +24,12 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
 
-
 /**
  * WallModel class is responsible for all the implementations on the wall,ball and the impacts.
  */
 public class WallModel {
 
-    private static final int LEVELS_COUNT = 4;
+    private static final int LEVELS_COUNT = 6;
 
     private static final int CLAY = 1;
     private static final int STEEL = 2;
@@ -217,6 +216,8 @@ public class WallModel {
         tmp[1] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,CEMENT);
         tmp[2] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,STEEL);
         tmp[3] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL,CEMENT);
+        tmp[4] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CEMENT,STEEL);
+        tmp[5] = makeSingleTypeLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL);
         return tmp;
     }
 
@@ -419,3 +420,4 @@ public class WallModel {
     }
 
 }
+
