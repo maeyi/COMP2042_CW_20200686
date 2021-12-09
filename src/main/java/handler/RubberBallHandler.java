@@ -10,7 +10,7 @@ import java.awt.geom.Point2D;
  * It extends the BallController class. Inheritance
  * Responsible for creating the Rubber Ball.
  */
-public class RubberBallHandelerImpl extends GameBallHandler {
+public class RubberBallHandler extends GameBallHandler {
 
 
     private static final int DEF_RADIUS = 12;// make ball bigger
@@ -23,7 +23,7 @@ public class RubberBallHandelerImpl extends GameBallHandler {
      * Passes in the radius of the ball and the inner and border colors of the ball.
      * @param center    the initial location of the ball.
      */
-    public RubberBallHandelerImpl(Point2D center){
+    public RubberBallHandler(Point2D center){
         super(center,DEF_RADIUS,DEF_RADIUS,DEF_INNER_COLOR,DEF_BORDER_COLOR);
     }
 
