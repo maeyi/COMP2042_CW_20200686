@@ -11,7 +11,7 @@ import java.awt.geom.Point2D;
  * It extends the BrickController class. Inheritance
  * Responsible for all the implementations regarding the Cement Brick.
  */
-public class CementBrickHandelerImpl extends BrickHandler {
+public class CementBrickHandler extends BrickHandler {
 
 
     private static final String NAME = "Cement Brick";
@@ -30,7 +30,7 @@ public class CementBrickHandelerImpl extends BrickHandler {
      * @param point     brick position/location.
      * @param size      size of the brick.
      */
-    public CementBrickHandelerImpl(Point point, Dimension size){
+    public CementBrickHandler(Point point, Dimension size){
         super(NAME,point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH);
         crack = new Crack(DEF_CRACK_DEPTH,DEF_STEPS);
         brickFace = super.brickFace;
