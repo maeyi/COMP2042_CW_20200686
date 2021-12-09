@@ -43,11 +43,11 @@ public class AudioPlayer {
             throw new RuntimeException("Sound: Line Unavailable Exception Error: " + e);
         }
 
-        // play, stop, loop the sound clip
+        // play,stop,loop the sound clip
     }
     public void play(){
         if (!muteAudio){
-            clip.setFramePosition(0);  // Must always rewind!
+            clip.setFramePosition(0);  //always rewind
             clip.start();
         }
     }
