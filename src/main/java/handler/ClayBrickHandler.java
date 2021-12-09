@@ -9,7 +9,7 @@ import java.awt.*;
  * It extends the BrickController class. Inheritance
  * Responsible for all the implementations regarding the Clay Brick.
  */
-public class ClayBrickHandelerImpl extends BrickHandler {
+public class ClayBrickHandler extends BrickHandler {
 
     private static final String NAME = "Clay Brick";
     private static final Color DEF_INNER = new Color(253,218,13);//clay brick color as cadmium yellow
@@ -22,7 +22,7 @@ public class ClayBrickHandelerImpl extends BrickHandler {
      * @param point     brick position/location.
      * @param size      size of the brick.
      */
-    public ClayBrickHandelerImpl(Point point, Dimension size){
+    public ClayBrickHandler(Point point, Dimension size){
         super(NAME,point,size,DEF_BORDER,DEF_INNER,CLAY_STRENGTH);
     }
 
