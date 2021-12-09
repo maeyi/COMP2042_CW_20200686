@@ -11,7 +11,7 @@ import java.util.Random;
  * It extends the BrickController class. Inheritance
  * Responsible for all the implementations regarding the Steel Brick.
  */
-public class SteelBrickHandelerImpl extends BrickHandler {
+public class SteelBrickHandler extends BrickHandler {
 
     private static final String NAME = "Steel Brick";
     private static final Color DEF_INNER = new Color(192, 64, 0);
@@ -27,7 +27,7 @@ public class SteelBrickHandelerImpl extends BrickHandler {
      * @param point     brick position/location.
      * @param size      size of the brick.
      */
-    public SteelBrickHandelerImpl(Point point, Dimension size){
+    public SteelBrickHandler(Point point, Dimension size){
         super(NAME,point,size,DEF_BORDER,DEF_INNER,STEEL_STRENGTH);
         rnd = new Random();
         brickFace = super.brickFace;
