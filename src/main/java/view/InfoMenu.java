@@ -7,45 +7,55 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
-import javax.swing.JTextArea;
-import model.GameFrameModel;
+import controller.GameController;
 
-public class InfoMenu extends JComponent implements MouseListener, MouseMotionListener{
+/**
+ * InfoMenuView class is the class for the implementation of the info page when clicking Info Button
+ *  * Displays the Info Menu Page
+ */
+public class InfoMenuView extends JComponent implements MouseListener, MouseMotionListener{
 
     //add details in info page
     private static final String BACK_TEXT = "Back";
-    private static final String INSTRUCTIONS = "HOW TO PLAY:";
-    private static final String INSTRUCTIONS1 = "Press key A and key D to more left and right.";
-    private static final String INSTRUCTIONS2 = "Destroy all bricks to move on to the next level";
-    private static final String INSTRUCTIONS3 = "To skip a level , press ALT+SHIFT+F1";
-    private static final String INSTRUCTIONS4 = "To Pause game , Press ESC";
-    private Font TitleFont;
-    private Font instructionsFont;
+    private static final String INFO = "HOW TO PLAY:";
+    private static final String INFO1 = "Press key A and key D to move left and right.";
+    private static final String INFO2 = "Destroy all bricks to move on to the next level .";
+    private static final String INFO3 = "To skip a level , press ALT+SHIFT+F1";
+    private static final String INFO4 = "To Pause game , Press ESC ";
+    private static final String INFO5 = "To sprint, Press SHIFT+A or SHIFT+D ";
+    private Font fontTitle;
+    private Font fontInstructions;
 
 
     private static final Color BG_COLOR = Color.YELLOW.brighter();
     private static final Color TEXT_COLOR = new Color(0, 0, 0);//black
-    private static final Color CLICKED_BUTTON_COLOR = BG_COLOR.brighter();
+    private static final Color CLICKED_BUTTON_COLOR = BG_COLOR.darker();
     private static final Color CLICKED_TEXT = Color.BLACK;
-    private static final int BORDER_SIZE = 5;
-    private static final float[] DASHES = {12,6};
+//    private static final int BORDER_SIZE = 5;
+//    private static final float[] DASHES = {12,6};
 
     Toolkit t=Toolkit.getDefaultToolkit();
-    private Image Title_Image = t.getImage("src/test/Title_Image.jpg");
+    private Image infoImage = t.getImage("src/InfoPic.jpg");//background picture in Info Page
 
     private Rectangle menuFace;
     private Rectangle backButton;
 
-
-
     private Font buttonFont;
 
-    private GameFrameModel owner;
+    private GameController owner;
 
     private boolean backClicked;
 
-
-    public InfoMenu(GameFrameModel owner,Dimension area){
+    /**
+     * InfoMenuView is a parameterized constructor that sets the InfoMenuView elements.
+     * Sets the location of the info menu.
+     * Sets the dimensions of the BACK buttons
+     * Sets the font style and size of all the text in the InfoMenu.
+     * Sets the InfoMenu's border and dashes.
+     * @param owner     passing in the Object/reference variable of the GameController class. Aggregation relationship.
+     * @param area
+     */
+    public InfoMenuView(GameController owner,Dimension area){
         this.setFocusable(true);
         this.requestFocusInWindow();
 
@@ -60,70 +70,82 @@ public class InfoMenu extends JComponent implements MouseListener, MouseMotionLi
         Dimension btnDim = new Dimension(area.width / 3, area.height / 12);
         backButton = new Rectangle(btnDim);
 
-        buttonFont = new Font("Monospaced",Font.PLAIN,backButton.height-2);
-        TitleFont = new Font("Noto Mono",Font.BOLD,40);
-        instructionsFont = new Font("Monospaced", Font.PLAIN, 20);
+        buttonFont = new Font("Monospaced",Font.BOLD,backButton.height-2);
+        fontTitle = new Font("Noto Mono",Font.BOLD,40);
+        fontInstructions = new Font("Monospaced", Font.BOLD, 20);
 
 
     }
 
+    /**
+     * paint is an Overridden Method from the JComponent class.
+     * Method to invoke the painting of the InfoMenu page.
+     * Calls the drawMenu method.
+     * @param g
+     */
     public void paint(Graphics g){
-        drawMenu((Graphics2D)g);
+        writeMenu((Graphics2D)g);
     }
 
-    public void drawMenu(Graphics2D g2d){
-        g2d.drawImage(Title_Image, 1, 1, (int)(menuFace.getWidth()), (int)(menuFace.getHeight()), this);
-
-        drawText(g2d);
-        drawButton(g2d);
+    /**
+     * writeMenu method is used to paint directly into the InfoMenu rectangle frame.
+     * Calls the drawContainer method to draw the Info Menu screen.
+     * Calls the drawText method to draw and render the font in the Info Menu screen.
+     * Calls the drawButton method to paint/draw the text and button layout of the BACK button onto the frame.
+     * @param g2d
+     */
+    public void writeMenu(Graphics2D g2d){
+        g2d.drawImage(infoImage, 1, 1, (int)(menuFace.getWidth()), (int)(menuFace.getHeight()), this);
+        writeText(g2d);
+        addButton(g2d);
 
     }
 
-
-
-    private void drawText(Graphics2D g2d){
+    /**
+     * writeText Method is used to render the text for the Info Menu page.
+     * Responsible for drawing the Info Title, Greetings and Credits on the Info Menu.
+     * @param g2d
+     */
+    private void writeText(Graphics2D g2d){
 
         g2d.setColor(TEXT_COLOR);
 
         FontRenderContext frc = g2d.getFontRenderContext();
 
-        Rectangle2D greetingsRect = instructionsFont.getStringBounds(INSTRUCTIONS,frc);
+        Rectangle2D greetingsRect = fontInstructions.getStringBounds(INFO,frc);
 
 
         int sX,sY;
 
         sX = (int)(menuFace.getWidth())/ 4;
         sY = (int)(menuFace.getHeight() / 4);
-        g2d.setFont(TitleFont);
-        g2d.drawString(INSTRUCTIONS,sX,sY);
+        g2d.setFont(fontTitle);
+        g2d.drawString(INFO,sX,sY);
 
         int tY;
 
         tY = (int)(sY + 50);
-        g2d.setFont(instructionsFont);
-        g2d.drawString(INSTRUCTIONS1,5,tY);
+        g2d.setFont(fontInstructions);
+        g2d.drawString(INFO1,5,tY);
 
         int uY;
         uY = tY + 25;
-        g2d.drawString(INSTRUCTIONS2, 5, uY);
+        g2d.drawString(INFO2, 5, uY);
 
         int vY;
         vY = uY + 25;
-        g2d.drawString(INSTRUCTIONS3, 5, vY);
+        g2d.drawString(INFO3, 5, vY);
 
         int zY;
         zY = vY + 25;
-        g2d.drawString(INSTRUCTIONS4, 5, zY);
+        g2d.drawString(INFO4, 5, zY);
 
-
-
-
-
-
-
+        int mY;
+        mY = zY + 25;
+        g2d.drawString(INFO5, 5, mY);
     }
 
-    private void drawButton(Graphics2D g2d){
+    private void addButton(Graphics2D g2d){
 
         FontRenderContext frc = g2d.getFontRenderContext();
 
@@ -158,6 +180,12 @@ public class InfoMenu extends JComponent implements MouseListener, MouseMotionLi
         }
     }
 
+    /**
+     * mouseClicked implements the method in MouseListener.
+     * It contains the implementation for when user clicks on the BACK button.
+     * BACK button will enable the GameBoard.
+     * @param mouseEvent        to indicate if a mouse action has occurred or not.
+     */
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -165,7 +193,10 @@ public class InfoMenu extends JComponent implements MouseListener, MouseMotionLi
             owner.enableHomeMenu();
         }
     }
-
+    /**
+     * mousePressed Method invoked when a mouse button has been pressed on the BACK button.
+     * @param mouseEvent    to indicate if a mouse action has occurred or not.
+     */
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -175,6 +206,10 @@ public class InfoMenu extends JComponent implements MouseListener, MouseMotionLi
         }
     }
 
+    /**
+     * mouseReleased Method invoked when the mouse is released.
+     * @param mouseEvent    to indicate if a mouse action has occurred or not.
+     */
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
         if(backClicked ){
@@ -198,6 +233,11 @@ public class InfoMenu extends JComponent implements MouseListener, MouseMotionLi
 
     }
 
+    /**
+     * mouseMoved Method implements what should happen when the mouse hovers over the BACK button
+     * and what the cursor should look like otherwise.
+     * @param mouseEvent to indicate if a mouse action has occurred or not.
+     */
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
