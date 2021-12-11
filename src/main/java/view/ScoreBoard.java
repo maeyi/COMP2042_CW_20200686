@@ -7,19 +7,22 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
-import javax.swing.JTextArea;
-import model.GameFrameModel;
+import controller.GameController;
 
-public class ScoreBoard extends JComponent implements MouseListener, MouseMotionListener{
+/**
+ * ScoreBoardView class is the class for the implementation of the score board page when clicking Score Button
+ *  * Displays the ScoreBoard Page
+ */
+public class ScoreBoardView extends JComponent implements MouseListener, MouseMotionListener{
 
     //add details in info page
-    private static final String EXIT_TEXT = "EXIT";
+    public static final String EXIT_TEXT = "EXIT";
     private static final String INSTRUCTIONS = "HIGH SCORE :";
-    private static final String INSTRUCTIONS1 = "Maeyi : 30 ";
-    private static final String INSTRUCTIONS2 = "Sophie : 28";
-    private static final String INSTRUCTIONS3 = "Alex : 18";
-    private static final String INSTRUCTIONS4 = "Trisha : 17";
-    private static final String INSTRUCTIONS5 = "Crystal : 17";
+    public static  String HIGHSCORE1 = "Maeyi : 30 ";
+    private static final String HIGHSCORE2 = "Sophie : 28";
+    private static final String HIGHSCORES3 = "Alex : 18";
+    private static final String HIGHSCORE4 = "Trisha : 17";
+    private static final String HIGHSCORE5 = "Crystal : 17";
     private Font TitleFont;
     private Font instructionsFont;
 
@@ -28,8 +31,8 @@ public class ScoreBoard extends JComponent implements MouseListener, MouseMotion
     private static final Color TEXT_COLOR = new Color(0, 0, 0);//black
     private static final Color CLICKED_BUTTON_COLOR = BG_COLOR.darker();
     private static final Color CLICKED_TEXT = Color.BLACK;
-    private static final int BORDER_SIZE = 5;
-    private static final float[] DASHES = {12,6};
+//    private static final int BORDER_SIZE = 5;
+  //  private static final float[] DASHES = {12,6};
 
     Toolkit t=Toolkit.getDefaultToolkit();
     private Image ScorePic = t.getImage("src/HighScoreBg.jpg");//background picture in Score board
@@ -40,12 +43,21 @@ public class ScoreBoard extends JComponent implements MouseListener, MouseMotion
 
     private Font buttonFont;
 
-    private GameFrameModel owner;
+    private GameController owner;
 
     private boolean exitClicked;
 
 
-    public ScoreBoard(GameFrameModel owner,Dimension area){
+    /**
+     * ScoreBoardView is a parameterized constructor that sets the ScoreBoard elements.
+     * Sets the location of the ScoreBoard.
+     * Sets the dimensions of the EXIT button
+     * Sets the font style and size of all the text in the ScoreBoard.
+     * Sets the ScoreBoard's border and dashes.
+     * @param owner passing in the Object/reference variable of the GameController class. Aggregation relationship.
+     * @param area
+     */
+    public ScoreBoardView(GameController owner,Dimension area){
         this.setFocusable(true);
         this.requestFocusInWindow();
 
@@ -67,20 +79,34 @@ public class ScoreBoard extends JComponent implements MouseListener, MouseMotion
 
     }
 
+    /**
+     * paint is an Overridden Method from the JComponent class.
+     * Method to invoke the painting of the ScoreBoard page.
+     * Calls the drawMenu method.
+     * @param g
+     */
     public void paint(Graphics g){
         drawMenu((Graphics2D)g);
     }
 
+    /**
+     * drawMenu method is used to paint directly into the ScoreBoard's rectangle frame.
+     * Calls the drawContainer method to draw the ScoreBoard Menu screen.
+     * Calls the drawText method to draw and render the font in the ScoreBoard Menu screen.
+     * Calls the drawButton method to paint/draw the text and button layout of the EXIT button onto the frame.
+     * @param g2d
+     */
     public void drawMenu(Graphics2D g2d){
         g2d.drawImage(ScorePic, 1, 1, (int)(menuFace.getWidth()), (int)(menuFace.getHeight()), this);
-
         drawText(g2d);
         drawButton(g2d);
-
     }
 
-
-
+    /**
+     * drawText Method is used to render the text for the BoardBoard page.
+     * Responsible for drawing the ScoreBoard Title, Greetings and Credits on the ScoreBoard Menu.
+     * @param g2d
+     */
     private void drawText(Graphics2D g2d){
 
         g2d.setColor(TEXT_COLOR);
@@ -88,8 +114,6 @@ public class ScoreBoard extends JComponent implements MouseListener, MouseMotion
         FontRenderContext frc = g2d.getFontRenderContext();
 
         Rectangle2D greetingsRect = instructionsFont.getStringBounds(INSTRUCTIONS,frc);
-
-
         int sX,sY;
 
         sX = (int)(menuFace.getWidth())/ 4;
@@ -101,32 +125,32 @@ public class ScoreBoard extends JComponent implements MouseListener, MouseMotion
 
         tY = (int)(sY + 50);
         g2d.setFont(instructionsFont);
-        g2d.drawString(INSTRUCTIONS1,5,tY);
+        g2d.drawString(HIGHSCORE1,5,tY);
 
         int uY;
         uY = tY + 25;
-        g2d.drawString(INSTRUCTIONS2, 5, uY);
+        g2d.drawString(HIGHSCORE2, 5, uY);
 
         int vY;
         vY = uY + 25;
-        g2d.drawString(INSTRUCTIONS3, 5, vY);
+        g2d.drawString(HIGHSCORES3, 5, vY);
 
         int zY;
         zY = vY + 25;
-        g2d.drawString(INSTRUCTIONS4, 5, zY);
+        g2d.drawString(HIGHSCORE4, 5, zY);
 
         int mY;
         mY = zY + 25;
-        g2d.drawString(INSTRUCTIONS5, 5, mY);
-
-
-
-
-
-
-
+        g2d.drawString(HIGHSCORE5, 5, mY);
     }
 
+    /**
+     * drawButton Method is used to render the button features and elements such as:
+     * The logical bounds of the EXIT button text.
+     * Sets the location of the buttons on the menuFace.
+     * Changes the text and button color when clicked.
+     * @param g2d
+     */
     private void drawButton(Graphics2D g2d){
 
         FontRenderContext frc = g2d.getFontRenderContext();
@@ -162,6 +186,12 @@ public class ScoreBoard extends JComponent implements MouseListener, MouseMotion
         }
     }
 
+    /**
+     * mouseClicked implements the method in MouseListener.
+     * It contains the implementation for when user clicks on the EXIT button.
+     * BACK button will enable the GameBoard.
+     * @param mouseEvent to indicate if a mouse action has occurred or not.
+     */
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -171,6 +201,10 @@ public class ScoreBoard extends JComponent implements MouseListener, MouseMotion
         }
     }
 
+    /**
+     * mousePressed Method invoked when a mouse button has been pressed on the EXIT button.
+     * @param mouseEvent to indicate if a mouse action has occurred or not.
+     */
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -180,6 +214,10 @@ public class ScoreBoard extends JComponent implements MouseListener, MouseMotion
         }
     }
 
+    /**
+     * mouseReleased Method invoked when the mouse is released.
+     * @param mouseEvent to indicate if a mouse action has occurred or not.
+     */
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
         if(exitClicked ){
@@ -203,6 +241,11 @@ public class ScoreBoard extends JComponent implements MouseListener, MouseMotion
 
     }
 
+    /**
+     * mouseMoved Method implements what should happen when the mouse hovers over the EXIT button
+     * and what the cursor should look like otherwise.
+     * @param mouseEvent to indicate if a mouse action has occurred or not.
+     */
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -212,6 +255,7 @@ public class ScoreBoard extends JComponent implements MouseListener, MouseMotion
         else {
             this.setCursor(Cursor.getDefaultCursor());
         }
-
     }
+    
+    
 }
